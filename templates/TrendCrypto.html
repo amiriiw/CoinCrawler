@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trend crypto Info</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            justify-content: center;
+            flex-direction: column;
+            background: #222222;
+            margin: -20px 0 50px;
+            align-items: center;
+            display: flex;
+            height: 100vh;
+        }
+        h1 {
+            color: #000000;
+        }
+        
+        .container {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25) ,0 10px 10px rgba(0,0,0,0.22);
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            position: relative;
+            min-height: 480px;
+            overflow: hidden;
+            max-width: 100%;            
+            width: 768px;
+        }
+        .crypto-list {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #FFFFFF;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            max-height: 700px;
+            overflow: auto;
+            padding: 20px;
+        }
+        .crypto-list table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .crypto-list th, .crypto-list td {
+            border-bottom: 1px solid #ddd;
+            color: #000000;
+            text-align: left;
+            padding: 8px;
+        }
+        .crypto-list th {
+            background-color: #333333;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="crypto-list">
+        <h1>Trend crypto</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>24 Hour Change</th>
+                    <th>1 Week Change</th>
+                    <th>Market cap</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for crypto in data %}
+                <tr>
+                    <td>{{ crypto.name }}</td>
+                    <td>{{ crypto.price }}</td>
+                    <td>{{ crypto['24hour change'] }}</td>
+                    <td>{{ crypto['1week change'] }}</td>
+                    <td>{{ crypto['marketcap'] }}</td>
+                    <td>{{ crypto.volume }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

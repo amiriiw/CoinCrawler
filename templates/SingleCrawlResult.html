@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} Info</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #E8F0F2, #A4C3D9);
+            font-family: 'Montserrat', sans-serif;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: flex;
+            margin: 0;
+        }
+        h1, h2 {
+            color: #333333;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #333333;
+            font-weight: 400;
+            font-size: 16px;
+        }
+        .container {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25) ,0 10px 10px rgba(0, 0, 0, 0.22);
+            grid-template-columns: 1.5fr 2.5fr 1.5fr;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            max-width: 90%;
+            grid-gap: 20px;
+            display: grid;
+            padding: 20px;
+            height: 90vh;
+            width: 100%;
+        }
+        .left-sidebar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #F0F8FF;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 8px;
+            padding-top: 10px; 
+            overflow: hidden;
+            max-height: 100%;
+            grid-column: 1;
+            padding: 20px;
+            display: flex;
+        }
+        .left-sidebar .header img {
+            border: 2px solid #A4C3D9;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: block;
+            height: 140px;
+            width: 140px;
+        }
+        .left-sidebar .header {
+            text-align: center;
+        }
+        .left-sidebar .header .price {
+            font-weight: bold;
+            color: #333333;
+            margin-top: 10px;
+            font-size: 28px;
+        }
+        .left-sidebar h1 {
+            border-right: 2px solid rgba(0,0,0,0.75);
+            white-space: nowrap;
+            color: #2D4E60;
+            overflow: hidden;
+            font-size: 26px;
+            margin: 0 auto;
+            width: 0;
+        }
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        .coin-details {
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            display: flex;
+            width: 100%;
+        }
+        .coin-details p {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #E7EFF6;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+        }
+        .coin-details p span {
+            font-weight: bold;
+            color: #2C3E50;
+        }
+        .coin-details p.price-info {
+            color: #1B4F72;
+            font-size: 18px;
+        }
+        .right-sidebar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #F7F9FC;
+            border-radius: 8px;
+            max-height: 100%;
+            overflow-y: auto;
+            grid-column: 3;
+            padding: 20px;
+        }
+        .right-sidebar p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            color: #000000;
+            font-size: 15px;
+        }
+        .right-sidebar h2 {
+            margin-bottom: 20px;
+            color: #34495E;
+            font-size: 22px;
+        }
+        .center {
+            flex-direction: column;
+            grid-column: 2;
+            display: flex;
+            gap: 20px;
+        }
+        .markets {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #FAFCFE;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            flex-grow: 6.5;
+            padding: 20px;
+        }
+        .markets table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .markets th, .markets td {
+            border-bottom: 1px solid #ddd;
+            color: #2C3E50;
+            text-align: left;
+            padding: 8px;
+        }
+        .markets th {
+            background-color: #34495E;
+            color: #FFFFFF;
+        }
+        .news, .analytics {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #FAFCFE;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            flex-grow: 3.5;
+            padding: 20px;
+        }        
+        .header {
+            margin-bottom: 20px;
+        }
+        .scrollable {
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-sidebar">
+            <div class="header">
+                <img id="logo" src="{{ data.logo }}" alt="Logo">
+                <h1 id="name">{{ data.name }}</h1>
+                <p class="price price-info" id="price">Price: {{ data.price }}</p>
+            </div>
+            <div class="coin-details">
+                <p>24h Change: <span id="change">{{ data['24hour change'] }}</span></p>
+                <p>24h Low: <span id="low">{{ data['lower price in 24 hour'] }}</span></p>
+                <p>24h High: <span id="high">{{ data['higher price in 24 hour'] }}</span></p>
+                <p>All Time High: <span id="ath">{{ data['all time-high'] }}</span></p>
+                <p>All Time Low: <span id="atl">{{ data['all time-low'] }}</span></p>
+            </div>
+        </div>
+        <div class="center">
+            <div class="markets">
+                <h2>Markets</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Exchange</th>
+                            <th>Pair</th>
+                            <th>Price</th>
+                            <th>Volume (24h)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-table">
+                        {% for market in data.markets %}
+                        <tr>
+                            <td>{{ market.rank }}</td>
+                            <td>{{ market.exchangeName }}</td>
+                            <td><a href="{{ market.marketUrl }}" target="_blank">{{ market.marketPair }}</a></td>
+                            <td>{{ market.price }}</td>
+                            <td>{{ market.volumeUsd }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="news">
+                <h2>News</h2>
+                <div id="news">
+                    {% for article in data.news %}
+                    <p>{{ article.title }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="analytics">
+                <h2>Analytics</h2>
+                <div id="analytics">
+                    <p>Coming soon...</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-sidebar">
+            <h2>About {{ data.name }}</h2>
+            <p>{{ data['about coin'] }}</p>
+        </div>        
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const name = "{{ data.name }}";
+            const length = name.length;
+            const animationDuration = length * 0.15;
+            const titleElement = document.querySelector('.left-sidebar h1');
+            titleElement.style.animation = `typewriter ${animationDuration}s steps(${length}) 1 forwards`;
+        });
+    </script>
+</body>
+</html>
